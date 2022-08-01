@@ -35,7 +35,7 @@ export default function SongCard({
                             {formatDuration(duration)}
                         </Typography>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
                         {album}
                     </Grid>
                 </Grid>

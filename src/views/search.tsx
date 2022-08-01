@@ -2,33 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import {
   Box,
-  Button,
-  Collapse,
-  IconButton,
-  Paper,
   Container,
   Grid,
-  Stack,
-  ListItemButton,
-  List,
-  ListSubheader,
-  ListItemText,
-  ListItemIcon,
-  createStyles,
-  makeStyles,
-  FormControl,
-  InputAdornment,
-  Slide,
-  SlideProps,
-  Snackbar,
-  TextField,
-  Typography,
-  Alert,
-  AlertColor,
 } from "@mui/material";
 import client from "../services/client";
 import SongCard from "../components/songCard";
-import { IPlayer } from "../utils/models";
+import { ITrack } from "../utils/models";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import InputBase from "@mui/material/InputBase";
@@ -79,27 +58,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchPage = () => {
   const { query } = useParams();
-  const [data, setData] = useState<Array<IPlayer>>(jsonData.data);
+  const [data, setData] = useState<Array<ITrack>>([]);
 
   const search = () => {
     client.get("search?q=" + query).then((response) => {
       setData(response.data.data);
-      console.log(response.data.data);
     });
   };
 
   useEffect(() => {
     search();
-  }, [query]);
+  }, [query?.length]);
 
   return (
-    <Container fixed>
+    <Container fixed sx={{pt: 10}}>
       <Box sx={{ minHeight: "100vh", pb: 20 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={12} lg={12}>
             <Grid container spacing={2}>
               {data &&
-                data.map((item: IPlayer, index: any) => (
+                data.map((item: ITrack, index: any) => (
                   <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
                     <SongCard
                       id={item.artist.id}

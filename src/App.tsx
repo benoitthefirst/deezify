@@ -10,6 +10,7 @@ import CurrentTrack from "./components/currentTrack";
 import './App.css';
 import NoPage from './views/noPage';
 import ArtistPage from './views/artist';
+import SearchPage from './views/search';
 import Layout from './components/appBar';
 
 let theme = createTheme({
@@ -132,7 +133,7 @@ function App() {
         <Layout />
         <Routes>
             <Route path="artist/:artisId" element={<ArtistPage />} />
-            <Route path="search/:query" element={<ArtistPage />} />
+            <Route path="search/:query" element={<SearchPage />} />
             <Route index element={<Home />} />
             <Route path="*" element={<NoPage />} />
         </Routes>

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import client from "../services/client";
 import TopTrackCard from "../components/topTrackCard";
-import { IPlayer, IArtist, IAlbum } from "../utils/models";
+import { ITrack, IArtist, IAlbum } from "../utils/models";
 import jsonArtistData from "../data/artist.json";
 import jsonData from "../data/eminem.json";
 import jsonTopTracks from "../data/topTracks.json";
@@ -20,8 +20,8 @@ import "../components/track.scss";
 const ArtistPage = () => {
     const { artisId } = useParams();
     const [artistData, setArtistData] = useState<IArtist>(jsonArtistData);
-    const [data, setData] = useState<Array<IPlayer>>(jsonData.data);
-    const [topTracks, setTopTracks] = useState<Array<IPlayer>>(
+    const [data, setData] = useState<Array<ITrack>>(jsonData.data);
+    const [topTracks, setTopTracks] = useState<Array<ITrack>>(
         jsonTopTracks.data
     );
     const [albums, setAlbums] = useState<Array<IAlbum>>(jsonAlbums.data);
@@ -71,7 +71,7 @@ const ArtistPage = () => {
               Top Tracks
             </Typography>
             {topTracks &&
-              topTracks.slice(0, 5).map((item: IPlayer, index: number) => (
+              topTracks.slice(0, 5).map((item: ITrack, index: number) => (
                 <Grid item key={index} xs={12} sm={6} md={4} lg={12}>
                   <TopTrackCard
                     id={item.artist.id}

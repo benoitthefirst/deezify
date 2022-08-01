@@ -1,33 +1,18 @@
-import { Outlet, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useParams,Outlet,useNavigate} from "react-router-dom";
 import {
   Box,
-  Button,
-  Collapse,
   IconButton,
-  Paper,
-  Container,
-  Grid,
   Stack,
   AppBar,
   Toolbar,
-  ListSubheader,
-  ListItemText,
-  ListItemIcon,
-  createStyles,
-  makeStyles,
-  FormControl,
+  Link,
   InputAdornment,
-  Slide,
-  SlideProps,
-  Snackbar,
   TextField,
-  Typography,
-  Alert,
-  AlertColor,
+  Typography
 } from "@mui/material";
 import { styled, alpha } from '@mui/material/styles';
-import { IPlayer } from '../utils/models';
+import { ITrack } from '../utils/models';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 const Search = styled('div')(({theme}) => ({
@@ -46,24 +31,31 @@ const Search = styled('div')(({theme}) => ({
   }));
 
 const Layout = () => {
-    const [data, setData] = useState<Array<IPlayer>>([]);
-    const [posts, setPosts] = useState([]);
-    const [query, setQuery] = useState("eminem");
+  const { query } = useParams();
+  const [searchQuery, setSearchQuery] = useState("");
+  let navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
+  const [data, setData] = useState<Array<ITrack>>([]);
  
     const [showClearIcon, setShowClearIcon] = useState(false);
  
     const hangleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
        setShowClearIcon(event.target.value == "" ? false : true);
-       setQuery(event.target.value);
+       setSearchQuery(event.target.value);
     }
  
     const handleClear = (): void => {
        //TODO: Clear the search input
-       setQuery("");
+       setSearchQuery("");
     }
  
-    const search = (searchQuery: string) =>{
+    const search = () =>{
+      navigate(`/search/${searchQuery}`, { replace: true });
     }
+
+    useEffect(() => {
+      setSearchQuery(query ?? "");
+    }, [query?.length]);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" color="secondary">
@@ -75,22 +67,25 @@ const Layout = () => {
             spacing={2}
             p={1}
           >
-            <Typography variant="h4" gutterBottom component="div" fontWeight={700}>
-              Deezify
-            </Typography>
+            <Link href="/" sx={{color: "white"}} underline="none">
+              <Typography variant="h4" gutterBottom component="div" fontWeight={700}>
+                Deezify
+              </Typography>
+            </Link>
+            
             <Search>
               <TextField
                 size="small"
                 variant="outlined"
                 placeholder="search..."
-                value={query}
+                value={searchQuery}
                 onChange={hangleChange}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <IconButton
                         aria-label="search"
-                        onClick={() => search(query)}
+                        onClick={() => search()}
                       >
                         <SearchIcon />
                       </IconButton>

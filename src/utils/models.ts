@@ -25,5 +25,6 @@ export interface IAlbum {
     title: string;
     cover: string;
     cover_big: string;
+    tracklist?: string;
     release_date?: string;
 }

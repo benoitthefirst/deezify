@@ -1,6 +1,6 @@
 // Colors
 
-$green: rgb(30, 215, 96);
+$green: #5D3FD3;
 $light-black: rgb(40, 40, 40);
 $black: rgb(24, 24, 24);
 $grey: rgb(170, 170, 170);
@@ -798,6 +798,7 @@ body {
           width: 150px;
           height: 150px;
           border-radius: 50%;
+          border: #ebeef2 2px solid;
         }
       }
       

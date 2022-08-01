@@ -38,21 +38,20 @@ import jsonData from "../data/eminem.json";
 import jsonTopTracks from "../data/topTracks.json";
 import jsonAlbums from "../data/albums.json";
 import AlbumCard from "../components/albumCard";
+import ArtistBanner from "../components/artistBanner";
 import "../components/track.scss";
 
 const ArtistPage = () => {
   const [artistData, setArtistData] = useState<IArtist>(jsonArtistData);
   const [data, setData] = useState<Array<IPlayer>>(jsonData.data);
-  const [topTracks, setTopTracks] = useState<Array<IPlayer>>(jsonTopTracks.data);
+  const [topTracks, setTopTracks] = useState<Array<IPlayer>>(
+    jsonTopTracks.data
+  );
   const [albums, setAlbums] = useState<Array<IAlbum>>(jsonAlbums.data);
   const [posts, setPosts] = useState([]);
   const [query, setQuery] = useState("eminem");
 
-  
-
-  const GetAlbums = () => {
-
-  }
+  const GetAlbums = () => {};
 
   useEffect(() => {
     //getMusic();
@@ -69,57 +68,9 @@ const ArtistPage = () => {
       <Box sx={{ minHeight: "100vh", pb: 10 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={12} lg={8}>
-            <div>
-
-            </div>
-            {/* <CardMedia
-              component="img"
-              sx={{ height: 530 }}
-              image={artistData.picture_big}
-              alt={artistData.name}
-            /> */}
-            <div >
-              <div className="artist" style={{
-                    backgroundImage: `url(${artistData.picture_xl})`
-                }}>
-                <div className="artist__header">
-                  <div className="artist__info">
-                    <div className="profile__img">
-                      <img
-                        src={artistData.picture_big}
-                        alt={artistData.name}
-                      />
-                    </div>
-
-                    <div className="artist__info__meta">
-                      <div className="artist__info__type">Artist</div>
-
-                      <div className="artist__info__name">{artistData.name}</div>
-
-                      <div className="artist__info__actions">
-                        <button className="button-dark">
-                          <PlayArrowRounded/>
-                          Play
-                        </button>
-
-                        <button className="button-light">Follow</button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="artist__listeners">
-                    <div className="artist__listeners__count">{artistData.nb_fan}</div>
-
-                    <div className="artist__listeners__label">
-                      Fan Base
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ArtistBanner name={artistData.name} fans={artistData.nb_fan} thumbnail={artistData.picture_xl}/>
           </Grid>
-
-          <Grid item xs={12} sm={8} md={12} lg={4}>
+          <Grid item xs={12} sm={12} md={12} lg={4}>
             <Typography
               variant="h4"
               gutterBottom

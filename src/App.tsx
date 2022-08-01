@@ -10,6 +10,7 @@ import CurrentTrack from "./components/currentTrack";
 import './App.css';
 import NoPage from './views/noPage';
 import ArtistPage from './views/artist';
+import Layout from './views/layout';
 
 let theme = createTheme({
   palette: {
@@ -128,16 +129,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
+        <Layout />
         <Routes>
-          <Route path="/" element={<Home />}>
+            <Route path="artist/:id" element={<ArtistPage />} />
             <Route index element={<Home />} />
-            <Route path="artist/{id}" element={<ArtistPage />} />
             <Route path="*" element={<NoPage />} />
-          </Route>
         </Routes>
+        <CurrentTrack/>
       </BrowserRouter>
-      <Home/>
-      <CurrentTrack/>
     </ThemeProvider>
   );
 }

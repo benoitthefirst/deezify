@@ -1,189 +1,175 @@
-import React, { useEffect, useState } from 'react';
-import { 
-   Box, 
-   Button, 
-   Collapse,
-   IconButton,
-   Paper, 
-   Container, 
-   Grid, 
-   Stack, 
-   ListItemButton, 
-   List, 
-   ListSubheader, 
-   ListItemText, 
-   ListItemIcon,
-   createStyles,
-   makeStyles,
-   FormControl,
-   InputAdornment,
-   Slide,
-   SlideProps,
-   Snackbar,
-   TextField,
-   Typography,
-   Alert,
-   AlertColor, 
-} from '@mui/material';
-import client from '../services/client';
-import SongCard from '../components/songCard';
-import { IPlayer } from '../utils/models';
-import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
-import InputBase from '@mui/material/InputBase';
-import { styled, alpha } from '@mui/material/styles';
-import  jsonData from '../data/eminem.json'; 
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Collapse,
+  IconButton,
+  Paper,
+  Container,
+  CardMedia,
+  Grid,
+  Stack,
+  ListItemButton,
+  List,
+  ListSubheader,
+  ListItemText,
+  ListItemIcon,
+  createStyles,
+  makeStyles,
+  FormControl,
+  InputAdornment,
+  Slide,
+  SlideProps,
+  Snackbar,
+  TextField,
+  Typography,
+  Alert,
+  AlertColor,
+} from "@mui/material";
+import client from "../services/client";
+import TopTrackCard from "../components/topTrackCard";
+import { IPlayer, IArtist, IAlbum } from "../utils/models";
+import PlayArrowRounded from "@mui/icons-material/PlayArrowRounded";
+import ClearIcon from "@mui/icons-material/Clear";
+import InputBase from "@mui/material/InputBase";
+import { styled, alpha } from "@mui/material/styles";
+import jsonArtistData from "../data/artist.json";
+import jsonData from "../data/eminem.json";
+import jsonTopTracks from "../data/topTracks.json";
+import jsonAlbums from "../data/albums.json";
+import AlbumCard from "../components/albumCard";
+import "../components/track.scss";
 
-const Search = styled('div')(({theme}) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
+const ArtistPage = () => {
+  const [artistData, setArtistData] = useState<IArtist>(jsonArtistData);
+  const [data, setData] = useState<Array<IPlayer>>(jsonData.data);
+  const [topTracks, setTopTracks] = useState<Array<IPlayer>>(jsonTopTracks.data);
+  const [albums, setAlbums] = useState<Array<IAlbum>>(jsonAlbums.data);
+  const [posts, setPosts] = useState([]);
+  const [query, setQuery] = useState("eminem");
+
   
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-  
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
-    },
-  }));
-  
- const ArtistPage = () => {
-    const [data, setData] = useState<Array<IPlayer>>(jsonData.data);
-    const [posts, setPosts] = useState([]);
-    const [query, setQuery] = useState("eminem");
- 
-    const [showClearIcon, setShowClearIcon] = useState(false);
- 
-    const hangleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-       setShowClearIcon(event.target.value == "" ? false : true);
-       setQuery(event.target.value);
-    }
- 
-    const handleClear = (): void => {
-       //TODO: Clear the search input
-       setQuery("");
-    }
- 
-    const search = (searchQuery: string) =>{
-       client.get('search?q='+searchQuery).then((response) => {
-          setData(response.data.data);
-          console.log(response.data.data);
-       });
-    }
- 
-    useEffect(() => {
-     //getMusic();
-     /* client.get('?_limit=10').then((response) => {
-       setPosts(response.data);
-       console.log(response.data);
-    }); */
-     //search(query);
-    }, [query.length]);
- 
-   return (
+
+  const GetAlbums = () => {
+
+  }
+
+  useEffect(() => {
+    //getMusic();
+    /* client.get('?_limit=10').then((response) => {
+      setPosts(response.data);
+      console.log(response.data);
+   }); */
+    //search(query);
+    GetAlbums();
+  }, [topTracks.length]);
+
+  return (
     <Container fixed>
-       <Box sx={{ minHeight: '100vh', py:5 }}>
-                 <Stack
-                     direction="row"
-                     justifyContent="space-between"
-                     alignItems="flex-start"
-                     spacing={2}
-                     marginBottom={2}>
-                     <Typography variant="h4" gutterBottom component="div">
-                         Deezify
-                     </Typography>
-                     <Search>
-                         {/* <SearchIconWrapper>
-                            <IconButton aria-label="search" onClick={() => search(query)}>
-                               <SearchIcon/>
-                            </IconButton>
-                         </SearchIconWrapper>
-                         <StyledInputBase
-                            placeholder="Search…"
-                            value={query}
-                            inputProps={{ 'aria-label': 'search'}}
-                            onChange={hangleChange}
-                         />
-                         {showClearIcon && <IconButton aria-label="clear search" onClick={handleClear}>
-                                     <ClearIcon/>
-                                  </IconButton>} */}
-                         <TextField
-                            size="small"
-                            variant="outlined"
-                            placeholder='search...'
-                            value={query}
-                            onChange={hangleChange}
-                            InputProps={{
-                            startAdornment: (
-                               <InputAdornment position="start">
-                                  <IconButton aria-label="search" onClick={() => search(query)}>
-                                     <SearchIcon/>
-                                  </IconButton>
-                               </InputAdornment>
-                            ),
-                            endAdornment: (
-                               <InputAdornment position="end">
-                                  {showClearIcon && <IconButton aria-label="clear search" onClick={handleClear}>
-                                     <ClearIcon/>
-                                  </IconButton>}
-                               </InputAdornment>
-                            )
-                         }}/>
-                      </Search>
-                 </Stack>
-                 <Grid container spacing={2}>
-                     <Grid item xs={12} sm={8} md={12} lg={12}>
-                         <Grid container spacing={2}>
-                             {data && 
-                                 data.map((item: IPlayer, index: any) => (
-                                     <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                                        <SongCard
-                                           id={item.artist.id} 
-                                           title={item.title_short} 
-                                           duration={item.duration}
-                                           artist={item.artist.name}
-                                           album={item.album.title}
-                                           thumbnail={item.album.cover_big}
-                                           />
-                                     </Grid>
-                                 ))
-                             }
-                         </Grid>
-                     </Grid>
-                 </Grid>
-             </Box>
- 
+      <Box sx={{ minHeight: "100vh", pb: 10 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={8} md={12} lg={8}>
+            <div>
+
+            </div>
+            {/* <CardMedia
+              component="img"
+              sx={{ height: 530 }}
+              image={artistData.picture_big}
+              alt={artistData.name}
+            /> */}
+            <div >
+              <div className="artist" style={{
+                    backgroundImage: `url(${artistData.picture_xl})`
+                }}>
+                <div className="artist__header">
+                  <div className="artist__info">
+                    <div className="profile__img">
+                      <img
+                        src={artistData.picture_big}
+                        alt={artistData.name}
+                      />
+                    </div>
+
+                    <div className="artist__info__meta">
+                      <div className="artist__info__type">Artist</div>
+
+                      <div className="artist__info__name">{artistData.name}</div>
+
+                      <div className="artist__info__actions">
+                        <button className="button-dark">
+                          <PlayArrowRounded/>
+                          Play
+                        </button>
+
+                        <button className="button-light">Follow</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="artist__listeners">
+                    <div className="artist__listeners__count">{artistData.nb_fan}</div>
+
+                    <div className="artist__listeners__label">
+                      Fan Base
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Grid>
+
+          <Grid item xs={12} sm={8} md={12} lg={4}>
+            <Typography
+              variant="h4"
+              gutterBottom
+              component="div"
+              fontWeight={500}
+              mb={2}
+            >
+              Top Tracks
+            </Typography>
+            {topTracks &&
+              topTracks.slice(0, 5).map((item: IPlayer, index: number) => (
+                <Grid item key={index} xs={12} sm={6} md={4} lg={12}>
+                  <TopTrackCard
+                    id={item.artist.id}
+                    title={item.title_short}
+                    duration={item.duration}
+                    rank={index + 1}
+                    thumbnail={item.album.cover_big}
+                  />
+                </Grid>
+              ))}
+          </Grid>
+        </Grid>
+
+        <Typography
+          variant="h4"
+          gutterBottom
+          component="div"
+          fontWeight={500}
+          mb={2}
+          mt={5}
+        >
+          Albums
+        </Typography>
+        <Grid container spacing={2}>
+          {albums &&
+            albums.slice(0, 4).map((item: IAlbum, index: any) => (
+              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+                <AlbumCard
+                  id={item.id}
+                  title={item.title}
+                  releaseDate={item.release_date}
+                  thumbnail={item.cover_big}
+                />
+              </Grid>
+            ))}
+        </Grid>
+      </Box>
     </Container>
-   )
- }
- 
- export default ArtistPage;
+  );
+};
+
+export default ArtistPage;

@@ -9,11 +9,13 @@ export type IPlayer = {
 export interface IArtist {
     id: number;
     name: string;
-    link: string;
-    picture: string;
-    picture_big: string;
-    picture_xl: string;
+    link?: string;
+    picture?: string;
+    picture_big?: string;
+    picture_xl?: string;
     tracklist: string;
+    nb_album?: number;
+    nb_fan?: number;
     type: string;
 }
 
@@ -23,4 +25,5 @@ export interface IAlbum {
     title: string;
     cover: string;
     cover_big: string;
+    release_date?: string;
 }

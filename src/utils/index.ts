@@ -4,3 +4,10 @@ export const formatDuration = (value: number) =>
   const secondLeft = value - minute * 60;
   return `${minute}:${secondLeft < 10 ? `0${secondLeft}` : secondLeft}`;
 }
+
+
+
+export const getYear = (value: string) => {
+  var year = (new Date(value)).getFullYear();
+  return year;
+}

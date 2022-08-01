@@ -54,7 +54,7 @@ const ArtistPage = () => {
     }, [topTracks.length, albums.length]);
 
   return (
-    <Container fixed>
+    <Container fixed sx={{pt: 10}}>
       <Box sx={{ minHeight: "100vh", pb: 10 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={12} lg={8}>

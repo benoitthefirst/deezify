@@ -9,8 +9,8 @@ import {
   Container,
   Grid,
   Stack,
-  ListItemButton,
-  List,
+  AppBar,
+  Toolbar,
   ListSubheader,
   ListItemText,
   ListItemIcon,
@@ -32,7 +32,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: 20,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -65,54 +65,56 @@ const Layout = () => {
     const search = (searchQuery: string) =>{
     }
   return (
-    <Container fixed>
-      <Box sx={{py: 5 }}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-          spacing={2}
-          marginBottom={2}
-        >
-          <Typography variant="h4" gutterBottom component="div" fontWeight={700}>
-            Deezify
-          </Typography>
-          <Search>
-            <TextField
-              size="small"
-              variant="outlined"
-              placeholder="search..."
-              value={query}
-              onChange={hangleChange}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <IconButton
-                      aria-label="search"
-                      onClick={() => search(query)}
-                    >
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    {showClearIcon && (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed" color="secondary">
+        <Toolbar variant="dense">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={2}
+            p={1}
+          >
+            <Typography variant="h4" gutterBottom component="div" fontWeight={700}>
+              Deezify
+            </Typography>
+            <Search>
+              <TextField
+                size="small"
+                variant="outlined"
+                placeholder="search..."
+                value={query}
+                onChange={hangleChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
                       <IconButton
-                        aria-label="clear search"
-                        onClick={handleClear}
+                        aria-label="search"
+                        onClick={() => search(query)}
                       >
-                        <ClearIcon />
+                        <SearchIcon />
                       </IconButton>
-                    )}
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Search>
-        </Stack>
-      </Box>
-    </Container>
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {showClearIcon && (
+                        <IconButton
+                          aria-label="clear search"
+                          onClick={handleClear}
+                        >
+                          <ClearIcon />
+                        </IconButton>
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Search>
+          </Stack>
+          </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 

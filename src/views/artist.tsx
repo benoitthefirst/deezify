@@ -1,38 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import {
   Box,
-  Button,
-  Collapse,
-  IconButton,
-  Paper,
   Container,
-  CardMedia,
   Grid,
-  Stack,
-  ListItemButton,
-  List,
-  ListSubheader,
-  ListItemText,
-  ListItemIcon,
-  createStyles,
-  makeStyles,
-  FormControl,
-  InputAdornment,
-  Slide,
-  SlideProps,
-  Snackbar,
-  TextField,
-  Typography,
-  Alert,
-  AlertColor,
+  Typography
 } from "@mui/material";
 import client from "../services/client";
 import TopTrackCard from "../components/topTrackCard";
 import { IPlayer, IArtist, IAlbum } from "../utils/models";
-import PlayArrowRounded from "@mui/icons-material/PlayArrowRounded";
-import ClearIcon from "@mui/icons-material/Clear";
-import InputBase from "@mui/material/InputBase";
-import { styled, alpha } from "@mui/material/styles";
 import jsonArtistData from "../data/artist.json";
 import jsonData from "../data/eminem.json";
 import jsonTopTracks from "../data/topTracks.json";
@@ -42,26 +18,40 @@ import ArtistBanner from "../components/artistBanner";
 import "../components/track.scss";
 
 const ArtistPage = () => {
-  const [artistData, setArtistData] = useState<IArtist>(jsonArtistData);
-  const [data, setData] = useState<Array<IPlayer>>(jsonData.data);
-  const [topTracks, setTopTracks] = useState<Array<IPlayer>>(
-    jsonTopTracks.data
-  );
-  const [albums, setAlbums] = useState<Array<IAlbum>>(jsonAlbums.data);
-  const [posts, setPosts] = useState([]);
-  const [query, setQuery] = useState("eminem");
+    const { artisId } = useParams();
+    const [artistData, setArtistData] = useState<IArtist>(jsonArtistData);
+    const [data, setData] = useState<Array<IPlayer>>(jsonData.data);
+    const [topTracks, setTopTracks] = useState<Array<IPlayer>>(
+        jsonTopTracks.data
+    );
+    const [albums, setAlbums] = useState<Array<IAlbum>>(jsonAlbums.data);
 
-  const GetAlbums = () => {};
+    const GetArtist = () => {
+        client.get(`artist/${artisId}/top?limit=5`).then((response) => {
+            setArtistData(response.data);
+            console.log(response.data.data);
+        });
+    };
 
-  useEffect(() => {
-    //getMusic();
-    /* client.get('?_limit=10').then((response) => {
-      setPosts(response.data);
-      console.log(response.data);
-   }); */
-    //search(query);
-    GetAlbums();
-  }, [topTracks.length]);
+    const GetTopTracks = () => {
+        client.get(`artist/${artisId}/top?limit=5`).then((response) => {
+            setTopTracks(response.data.data);
+            console.log(response.data.data);
+        });
+    };
+
+    const GetAlbums = () => {
+        client.get(`artist/${artisId}/albums`).then((response) => {
+            setAlbums(response.data.data);
+            console.log(response.data.data);
+        });
+    };
+
+    useEffect(() => {
+        //GetArtist();
+        //GetTopTracks();
+        //GetAlbums();
+    }, [topTracks.length, albums.length]);
 
   return (
     <Container fixed>

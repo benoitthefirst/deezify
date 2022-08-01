@@ -131,7 +131,7 @@ function App() {
       <BrowserRouter>
         <Layout />
         <Routes>
-            <Route path="artist/:id" element={<ArtistPage />} />
+            <Route path="artist/:artisId" element={<ArtistPage />} />
             <Route index element={<Home />} />
             <Route path="*" element={<NoPage />} />
         </Routes>

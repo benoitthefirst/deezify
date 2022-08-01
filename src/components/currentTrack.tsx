@@ -58,6 +58,7 @@ export default function CurrentTrack() {
       <Toolbar>
         <Box sx={{ width: "100%", overflow: "hidden", p: 1 }}>
           <Stack
+            sx={{ display: { xs: "flex", sm: "none" } }}
             direction="row"
             justifyContent="space-between"
             alignItems="center"
@@ -167,7 +168,7 @@ export default function CurrentTrack() {
             alignItems="center"
             spacing={2}
           >
-            <Box sx={{ alignItems: "center" }}>
+            <Box sx={{ display: "flex",alignItems: "center" }}>
               <CoverImage>
                 <img
                   alt="Eminem"

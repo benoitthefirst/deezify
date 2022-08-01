@@ -19,46 +19,41 @@ import "../components/track.scss";
 
 const ArtistPage = () => {
     const { artisId } = useParams();
-    const [artistData, setArtistData] = useState<IArtist>(jsonArtistData);
-    const [data, setData] = useState<Array<ITrack>>(jsonData.data);
-    const [topTracks, setTopTracks] = useState<Array<ITrack>>(
-        jsonTopTracks.data
-    );
-    const [albums, setAlbums] = useState<Array<IAlbum>>(jsonAlbums.data);
+    const [artistData, setArtistData] = useState<IArtist>();
+    const [data, setData] = useState<Array<ITrack>>([]);
+    const [topTracks, setTopTracks] = useState<Array<ITrack>>([]);
+    const [albums, setAlbums] = useState<Array<IAlbum>>([]);
 
     const GetArtist = () => {
-        client.get(`artist/${artisId}/top?limit=5`).then((response) => {
+        client.get(`artist/${artisId}`).then((response) => {
             setArtistData(response.data);
-            console.log(response.data.data);
         });
     };
 
     const GetTopTracks = () => {
         client.get(`artist/${artisId}/top?limit=5`).then((response) => {
             setTopTracks(response.data.data);
-            console.log(response.data.data);
         });
     };
 
     const GetAlbums = () => {
         client.get(`artist/${artisId}/albums`).then((response) => {
             setAlbums(response.data.data);
-            console.log(response.data.data);
         });
     };
 
     useEffect(() => {
-        //GetArtist();
-        //GetTopTracks();
-        //GetAlbums();
+        GetArtist();
+        GetTopTracks();
+        GetAlbums();
     }, [topTracks.length, albums.length]);
 
   return (
-    <Container fixed sx={{pt: {xs: 5, sm: 10}}}>
+    <Container fixed sx={{pt: 10}}>
       <Box sx={{ minHeight: "100vh", pb: 10 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={12} lg={8}>
-            <ArtistBanner name={artistData.name} fans={artistData.nb_fan} thumbnail={artistData.picture_xl}/>
+            {artistData && (<ArtistBanner name={artistData.name} fans={artistData.nb_fan} thumbnail={artistData.picture_xl}/>)}
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={4}>
             <Typography

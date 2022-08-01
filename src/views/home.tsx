@@ -78,11 +78,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const HomePage = () => {
-  const [tracksData, setTacksData] = useState<Array<ITrack>>(jsonData.tracks.data);
-  const [albumsData, setAlbumsData] = useState<Array<IAlbum>>(jsonData.albums.data);
-  const [artistsData, setArtistsData] = useState<Array<IArtist>>(jsonData.artists.data);
-  const [playlistsData, setPlaylistsData] = useState<Array<IPlaylist>>(jsonData.playlists.data);
-  const [podcastsData, setPodcastsData] = useState<Array<IPodcast>>(jsonData.podcasts.data);
+  const [tracksData, setTacksData] = useState<Array<ITrack>>();
+  const [albumsData, setAlbumsData] = useState<Array<IAlbum>>();
+  const [artistsData, setArtistsData] = useState<Array<IArtist>>();
+  const [playlistsData, setPlaylistsData] = useState<Array<IPlaylist>>();
+  const [podcastsData, setPodcastsData] = useState<Array<IPodcast>>();
   
   const GetChart = () => {
     client.get(`chart`).then((response) => {
@@ -95,7 +95,7 @@ const HomePage = () => {
 };
 
   useEffect(() => {
-    //GetChart();
+    GetChart();
   }, []);
 
   return (

@@ -77,7 +77,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Home = () => {
+const HomePage = () => {
   const [tracksData, setTacksData] = useState<Array<ITrack>>(jsonData.tracks.data);
   const [albumsData, setAlbumsData] = useState<Array<IAlbum>>(jsonData.albums.data);
   const [artistsData, setArtistsData] = useState<Array<IArtist>>(jsonData.artists.data);
@@ -99,7 +99,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Container fixed sx={{ pt: 10 }}>
+    <Container fixed sx={{ pt: {xs: 5, sm: 10} }}>
       <Box sx={{ minHeight: "100vh", pb: 20 }}>
         <Grid item xs={12} sm={8} md={12} lg={12}></Grid>
         <Typography
@@ -224,4 +224,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

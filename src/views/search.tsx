@@ -71,7 +71,7 @@ const SearchPage = () => {
   }, [query?.length]);
 
   return (
-    <Container fixed sx={{pt: 10}}>
+    <Container fixed sx={{pt: {xs: 5, sm: 10}}}>
       <Box sx={{ minHeight: "100vh", pb: 20 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={12} lg={12}>

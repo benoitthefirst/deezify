@@ -5,7 +5,7 @@ import {
   ThemeProvider, createTheme, 
   CssBaseline,responsiveFontSizes
  } from "@mui/material";
-import Home from './views/home';
+import HomePage from './views/home';
 import CurrentTrack from "./components/currentTrack";
 import './App.css';
 import NoPage from './views/noPage';
@@ -134,7 +134,7 @@ function App() {
         <Routes>
             <Route path="artist/:artisId" element={<ArtistPage />} />
             <Route path="search/:query" element={<SearchPage />} />
-            <Route index element={<Home />} />
+            <Route index element={<HomePage />} />
             <Route path="*" element={<NoPage />} />
         </Routes>
         <CurrentTrack/>

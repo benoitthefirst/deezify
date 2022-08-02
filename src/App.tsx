@@ -8,6 +8,8 @@ import SearchPage from "./views/search";
 import NoPage from "./views/noPage";
 import AppBar from "./components/appBar";
 
+import './App.css';
+
 let theme = createTheme({
   palette: {
     // mode: "dark",

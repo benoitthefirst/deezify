@@ -1,4 +1,5 @@
-import { CardMedia, Grid, Box, Link, Paper, Typography } from "@mui/material";
+import { CardMedia, Grid, Box, Paper, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import { formatDuration } from "../utils";
 
 export default function SongCard({
@@ -32,7 +33,7 @@ export default function SongCard({
         </Typography>
         <Grid container spacing={1} alignItems="center" sx={{ mt: 1 }}>
           <Grid item xs={10} sm={10}>
-            <Link href={`artist/${id}`} underline="none">
+            <Link to={`/artist/${id}`} className="link">
               <Typography variant="h6" gutterBottom component="div">
                 {artist}
               </Typography>
@@ -44,7 +45,15 @@ export default function SongCard({
             </Typography>
           </Grid>
           <Grid item xs={12} sx={{ display: { xs: "none", sm: "flex" } }}>
+            <Typography
+            variant="caption"
+            noWrap={true}
+            component="div"
+            align="left"
+            sx={{ fontWeight: 500 }}
+          >
             {album}
+          </Typography>
           </Grid>
         </Grid>
       </Box>

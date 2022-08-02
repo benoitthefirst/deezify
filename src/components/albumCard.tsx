@@ -2,10 +2,10 @@ import {
   CardMedia,
   Grid,
   Box,
-  Link,
   Paper,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import {getYear } from "../utils";
 
 export default function AlbumCard({
@@ -44,7 +44,7 @@ export default function AlbumCard({
           <Grid item xs={12}>
             {releaseDate?.length > 0 && getYear(releaseDate)}
             {artist?.length > 0 && (
-              <Link href={`artist/${artistId}`} underline="none">
+              <Link to={`/artist/${artistId}`} className="link">
                 <Typography variant="h6" gutterBottom component="div">
                   {artist}
                 </Typography>

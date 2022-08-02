@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import client from "../services/client";
@@ -7,21 +7,24 @@ import SkeletonCard from "../components/skeletonCard";
 import { ITrack } from "../utils/models";
 
 const SearchPage = () => {
-  const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const { query } = useParams();
   const [data, setData] = useState(new Array<ITrack>());
 
-  const search = () => {
-    setIsFetching(true);
-    client.get("search?q=" + query).then((response) => {
-      setData(response.data.data);
+  const search = useCallback(async () => {
+    try{
+      setIsFetching(true);
+      let res = await client.get("search?q=" + query);
+      setData(res.data.data);
       setIsFetching(false);
-    });
-  };
+    }catch(err){  
+      console.error(err);
+    }
+  }, [ ]);
 
   useEffect(() => {
     search();
-  });
+  }, [search]);
 
   return (
     <Container fixed sx={{ pt: { xs: 5, sm: 10 } }}>

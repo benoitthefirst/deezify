@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import client from "../services/client";
 import SongCard from "../components/songCard";
@@ -7,28 +7,31 @@ import SkeletonCard from "../components/skeletonCard";
 import { ITrack, IAlbum, IArtist, IPlaylist, IPodcast } from "../utils/models";
 
 const HomePage = () => {
-  const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const [tracksData, setTacksData] = useState(new Array<ITrack>());
   const [albumsData, setAlbumsData] = useState(new Array<IAlbum>());
   const [artistsData, setArtistsData] = useState(new Array<IArtist>());
   const [playlistsData, setPlaylistsData] = useState(new Array<IPlaylist>());
   const [podcastsData, setPodcastsData] = useState(new Array<IPodcast>());
 
-  const GetChart = () => {
-    setIsFetching(true);
-    client.get(`chart`).then((response) => {
-      setTacksData(response.data.tracks.data);
-      setAlbumsData(response.data.albums.data);
-      setArtistsData(response.data.artists.data);
-      setPlaylistsData(response.data.playlists.data);
-      setPodcastsData(response.data.podcasts.data);
+  const getChart = useCallback(async () => {
+    try{
+      setIsFetching(true);
+      let res = await client.get("chart");
+      setTacksData(res.data.tracks.data);
+      setAlbumsData(res.data.albums.data);
+      setArtistsData(res.data.artists.data);
+      setPlaylistsData(res.data.playlists.data);
+      setPodcastsData(res.data.podcasts.data);
       setIsFetching(false);
-    });
-  };
+    }catch(err){  
+      console.error(err);
+    }
+  }, [ ]);
 
   useEffect(() => {
-    GetChart();
-  });
+    getChart();
+  }, [getChart]);
 
   return (
     <Container fixed sx={{ pt: { xs: 5, sm: 10 } }}>

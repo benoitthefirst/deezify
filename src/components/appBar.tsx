@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams,useNavigate} from "react-router-dom";
+import { useParams,Link,useNavigate} from "react-router-dom";
 import {
   Box,
   IconButton,
   Stack,
   AppBar,
   Toolbar,
-  Link,
   InputAdornment,
   TextField,
   Typography
@@ -64,7 +63,7 @@ const Layout = () => {
             spacing={2}
             p={1}
           >
-            <Link href="/" sx={{color: "white"}} underline="none">
+            <Link to="/" className="link_white">
               <Typography variant="h4" gutterBottom component="div" fontWeight={700}>
                 Deezify
               </Typography>

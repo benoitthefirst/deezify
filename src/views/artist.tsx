@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Container, Grid, Typography, Skeleton } from "@mui/material";
 import client from "../services/client";
@@ -9,43 +9,52 @@ import SkeletonCard from "../components/skeletonCard";
 import ArtistBanner from "../components/artistBanner";
 
 const ArtistPage = () => {
-  const [isFetchingAlbums, setIsFetchingAlbums] = useState(false);
-  const [isFetchingTracks, setIsFetchingTracks] = useState(false);
-  const [isFetchingInfo, setIsFetchingInfo] = useState(false);
+  const [isFetchingAlbums, setIsFetchingAlbums] = useState(true);
+  const [isFetchingTracks, setIsFetchingTracks] = useState(true);
+  const [isFetchingInfo, setIsFetchingInfo] = useState(true);
   const { id } = useParams();
   const [artistData, setArtistData] = useState<IArtist>();
   const [topTracks, setTopTracks] = useState(new Array<ITrack>());
   const [albums, setAlbums] = useState(new Array<IAlbum>());
 
-  const GetArtist = () => {
-    setIsFetchingInfo(true);
-    client.get(`artist/${id}`).then((response) => {
-      setArtistData(response.data);
+  const getArtist = useCallback(async () => {
+    try{
+      setIsFetchingInfo(true);
+      let res = await client.get(`artist/${id}`);
+      setArtistData(res.data);
       setIsFetchingInfo(false);
-    });
-  };
+    }catch(err){  
+      console.error(err);
+    }
+  }, [ ]);
 
-  const GetTopTracks = () => {
-    setIsFetchingTracks(true);
-    client.get(`artist/${id}/top?limit=5`).then((response) => {
-      setTopTracks(response.data.data);
+  const getTopTracks = useCallback(async () => {
+    try{
+      setIsFetchingTracks(true);
+      let res = await client.get(`artist/${id}/top?limit=5`);
+      setTopTracks(res.data.data);
       setIsFetchingTracks(false);
-    });
-  };
+    }catch(err){  
+      console.error(err);
+    }
+  }, [ ]);
 
-  const GetAlbums = () => {
-    setIsFetchingAlbums(true);
-    client.get(`artist/${id}/albums`).then((response) => {
-      setAlbums(response.data.data);
+  const getAlbums = useCallback(async () => {
+    try{
+      setIsFetchingAlbums(true);
+      let res = await client.get(`artist/${id}/albums`);
+      setAlbums(res.data.data);
       setIsFetchingAlbums(false);
-    });
-  };
+    }catch(err){  
+      console.error(err);
+    }
+  }, [ ]);
 
   useEffect(() => {
-    GetArtist();
-    GetTopTracks();
-    GetAlbums();
-  });
+    getArtist();
+    getTopTracks();
+    getAlbums();
+  }, [getArtist,getTopTracks,getAlbums]);
 
   return (
     <Container fixed sx={{ pt: 10 }}>
@@ -104,7 +113,7 @@ const ArtistPage = () => {
           mb={2}
           mt={5}
         >
-          Albums
+          Albums {albums.length > 0 && `(${albums.length})`}
         </Typography>
         <Grid container spacing={2}>
           {(isFetchingAlbums ? Array.from(new Array(8)) : albums).map(

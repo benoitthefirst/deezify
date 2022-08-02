@@ -8,7 +8,8 @@ import HomePage from './views/home';
 import CurrentTrack from "./components/currentTrack";
 import ArtistPage from './views/artist';
 import SearchPage from './views/search';
-import Layout from './components/appBar';
+import NoPage from './views/noPage';
+import AppBar from './components/appBar';
 
 let theme = createTheme({
   palette: {
@@ -128,12 +129,12 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-          <Layout />
+          <AppBar />
           <Routes>
               <Route path="artist/:artistId" element={<ArtistPage />} />
               <Route path="search/:query" element={<SearchPage />} />
               <Route index element={<HomePage />} />
-              {/* <Route path="*" element={<NoPage />} /> */}
+              <Route path="*" element={<NoPage />} />
           </Routes>
           <CurrentTrack/>
         </BrowserRouter>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
@@ -6,16 +6,10 @@ import {
   Toolbar,
   AppBar,
   Typography,
-  LinearProgress,
   Slider,
   Stack,
 } from "@mui/material";
 import { formatDuration } from "../utils";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
-import VolumeDown from "@mui/icons-material/VolumeDown";
-import VolumeUp from "@mui/icons-material/VolumeUp";
 import PauseRounded from "@mui/icons-material/PauseRounded";
 import PlayArrowRounded from "@mui/icons-material/PlayArrowRounded";
 import FastForwardRounded from "@mui/icons-material/FastForwardRounded";
@@ -45,7 +39,6 @@ const TinyText = styled(Typography)({
 
 export default function CurrentTrack() {
   const theme = useTheme();
-  const [progress, setProgress] = useState(20);
   const duration = 290; // seconds
   const [position, setPosition] = React.useState(32);
   const [paused, setPaused] = React.useState(false);

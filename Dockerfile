@@ -21,5 +21,5 @@ WORKDIR /app
 COPY --from=build /build/build ./build
 
 RUN npm i -g serve
-EXPOSE 5000
-CMD serve -s -p 5000 build
+EXPOSE 80
+CMD serve -s -p $PORT build

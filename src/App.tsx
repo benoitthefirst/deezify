@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import HomePage from "./views/home";
 import CurrentTrack from "./components/currentTrack";
@@ -129,7 +129,7 @@ let theme = createTheme({
 
 function App() {
   return (
-    <HashRouter basename="/">
+    <BrowserRouter basename="/">
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppBar />
@@ -141,7 +141,7 @@ function App() {
         </Routes>
         <CurrentTrack />
       </ThemeProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

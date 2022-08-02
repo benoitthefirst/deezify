@@ -1,81 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Button,
-  Collapse,
-  IconButton,
-  Paper,
   Container,
   Grid,
-  Stack,
-  ListItemButton,
-  List,
-  ListSubheader,
-  ListItemText,
-  ListItemIcon,
-  createStyles,
-  makeStyles,
-  FormControl,
-  InputAdornment,
-  Slide,
-  SlideProps,
-  Snackbar,
-  TextField,
-  Typography,
-  Alert,
-  AlertColor,
+  Typography
 } from "@mui/material";
 import client from "../services/client";
 import SongCard from "../components/songCard";
 import AlbumCard from "../components/albumCard";
-import { IChart,ITrack,IAlbum,IArtist,IPlaylist,IPodcast} from "../utils/models";
-import SearchIcon from "@mui/icons-material/Search";
-import ClearIcon from "@mui/icons-material/Clear";
-import InputBase from "@mui/material/InputBase";
-import { styled, alpha } from "@mui/material/styles";
-import jsonData from "../data/chart.json";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+import { ITrack,IAlbum,IArtist,IPlaylist,IPodcast} from "../utils/models";
 
 const HomePage = () => {
   const [tracksData, setTacksData] = useState<Array<ITrack>>();

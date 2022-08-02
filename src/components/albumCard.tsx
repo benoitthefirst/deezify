@@ -1,14 +1,12 @@
 import {
   CardMedia,
-  IconButton,
   Grid,
   Box,
   Link,
   Paper,
-  Stack,
   Typography,
 } from "@mui/material";
-import { formatDuration, getYear } from "../utils";
+import {getYear } from "../utils";
 
 export default function AlbumCard({
   id,

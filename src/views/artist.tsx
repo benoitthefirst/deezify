@@ -9,18 +9,12 @@ import {
 import client from "../services/client";
 import TopTrackCard from "../components/topTrackCard";
 import { ITrack, IArtist, IAlbum } from "../utils/models";
-import jsonArtistData from "../data/artist.json";
-import jsonData from "../data/eminem.json";
-import jsonTopTracks from "../data/topTracks.json";
-import jsonAlbums from "../data/albums.json";
 import AlbumCard from "../components/albumCard";
 import ArtistBanner from "../components/artistBanner";
-import "../components/track.scss";
 
 const ArtistPage = () => {
     const { id } = useParams();
     const [artistData, setArtistData] = useState<IArtist>();
-    const [data, setData] = useState<Array<ITrack>>([]);
     const [topTracks, setTopTracks] = useState<Array<ITrack>>([]);
     const [albums, setAlbums] = useState<Array<IAlbum>>([]);
 
@@ -46,7 +40,7 @@ const ArtistPage = () => {
         GetArtist();
         GetTopTracks();
         GetAlbums();
-    }, [topTracks.length, albums.length]);
+    });
 
   return (
     <Container fixed sx={{pt: 10}}>
@@ -92,7 +86,7 @@ const ArtistPage = () => {
         </Typography>
         <Grid container spacing={2}>
           {albums &&
-            albums.slice(0, 4).map((item: IAlbum, index: any) => (
+            albums.map((item: IAlbum, index: any) => (
               <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
                 <AlbumCard
                   id={item.id}

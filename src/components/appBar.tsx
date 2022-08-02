@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams,Outlet,useNavigate} from "react-router-dom";
+import { useParams,useNavigate} from "react-router-dom";
 import {
   Box,
   IconButton,
@@ -12,7 +12,6 @@ import {
   Typography
 } from "@mui/material";
 import { styled, alpha } from '@mui/material/styles';
-import { ITrack } from '../utils/models';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 const Search = styled('div')(({theme}) => ({
@@ -34,13 +33,11 @@ const Layout = () => {
   const { query } = useParams();
   const [searchQuery, setSearchQuery] = useState("");
   let navigate = useNavigate();
-  const [posts, setPosts] = useState([]);
-  const [data, setData] = useState<Array<ITrack>>([]);
  
     const [showClearIcon, setShowClearIcon] = useState(false);
  
     const hangleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-       setShowClearIcon(event.target.value == "" ? false : true);
+       setShowClearIcon(event.target.value === "" ? false : true);
        setSearchQuery(event.target.value);
     }
  
@@ -55,7 +52,7 @@ const Layout = () => {
 
     useEffect(() => {
       setSearchQuery(query ?? "");
-    }, [query?.length]);
+    }, [query]);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" color="secondary">

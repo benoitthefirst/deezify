@@ -1,53 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
-import {
-  Box,
-  Container,
-  Grid,
-  Typography
-} from "@mui/material";
+import { useParams } from "react-router-dom";
+import { Box, Container, Grid, Typography, Skeleton } from "@mui/material";
 import client from "../services/client";
 import TopTrackCard from "../components/topTrackCard";
 import { ITrack, IArtist, IAlbum } from "../utils/models";
 import AlbumCard from "../components/albumCard";
+import SkeletonCard from "../components/skeletonCard";
 import ArtistBanner from "../components/artistBanner";
 
 const ArtistPage = () => {
-    const { id } = useParams();
-    const [artistData, setArtistData] = useState<IArtist>();
-    const [topTracks, setTopTracks] = useState<Array<ITrack>>([]);
-    const [albums, setAlbums] = useState<Array<IAlbum>>([]);
+  const [isFetchingAlbums, setIsFetchingAlbums] = useState(true);
+  const [isFetchingTracks, setIsFetchingTracks] = useState(true);
+  const [isFetchingInfo, setIsFetchingInfo] = useState(true);
+  const { id } = useParams();
+  const [artistData, setArtistData] = useState<IArtist>();
+  const [topTracks, setTopTracks] = useState(new Array<ITrack>());
+  const [albums, setAlbums] = useState(new Array<IAlbum>());
 
-    const GetArtist = () => {
-        client.get(`artist/${id}`).then((response) => {
-            setArtistData(response.data);
-        });
-    };
-
-    const GetTopTracks = () => {
-        client.get(`artist/${id}/top?limit=5`).then((response) => {
-            setTopTracks(response.data.data);
-        });
-    };
-
-    const GetAlbums = () => {
-        client.get(`artist/${id}/albums`).then((response) => {
-            setAlbums(response.data.data);
-        });
-    };
-
-    useEffect(() => {
-        GetArtist();
-        GetTopTracks();
-        GetAlbums();
+  const GetArtist = () => {
+    setIsFetchingInfo(true);
+    client.get(`artist/${id}`).then((response) => {
+      setArtistData(response.data);
+      setIsFetchingInfo(false);
     });
+  };
+
+  const GetTopTracks = () => {
+    setIsFetchingTracks(true);
+    client.get(`artist/${id}/top?limit=5`).then((response) => {
+      setTopTracks(response.data.data);
+      setIsFetchingTracks(false);
+    });
+  };
+
+  const GetAlbums = () => {
+    setIsFetchingAlbums(true);
+    client.get(`artist/${id}/albums`).then((response) => {
+      setAlbums(response.data.data);
+      setIsFetchingAlbums(false);
+    });
+  };
+
+  useEffect(() => {
+    GetArtist();
+    GetTopTracks();
+    GetAlbums();
+  });
 
   return (
-    <Container fixed sx={{pt: 10}}>
+    <Container fixed sx={{ pt: 10 }}>
       <Box sx={{ minHeight: "100vh", pb: 10 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8} md={12} lg={8}>
-            {artistData && (<ArtistBanner name={artistData.name} fans={artistData.nb_fan} thumbnail={artistData.picture_xl}/>)}
+            {isFetchingInfo ? (<Box my={1}>
+                    <Skeleton animation="wave" variant="rectangular" height={350}/>
+                  </Box>) : artistData && (
+              <ArtistBanner
+                name={artistData.name}
+                fans={artistData.nb_fan}
+                thumbnail={artistData.picture_xl}
+              />
+            )}
+            
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={4}>
             <Typography
@@ -59,9 +73,12 @@ const ArtistPage = () => {
             >
               Top Tracks
             </Typography>
-            {topTracks &&
-              topTracks.slice(0, 5).map((item: ITrack, index: number) => (
-                <Grid item key={index} xs={12} sm={6} md={4} lg={12}>
+            {(isFetchingTracks
+              ? Array.from(new Array(5))
+              : topTracks.slice(0, 5)
+            ).map((item, index) => (
+              <Grid item key={index} xs={12} sm={12} md={12} lg={12}>
+                {item ? (
                   <TopTrackCard
                     id={item.artist.id}
                     title={item.title_short}
@@ -69,8 +86,13 @@ const ArtistPage = () => {
                     rank={index + 1}
                     thumbnail={item.album.cover_big}
                   />
-                </Grid>
-              ))}
+                ) : (
+                  <Box my={1}>
+                    <Skeleton animation="wave" variant="rectangular" height={55}/>
+                  </Box>
+                )}
+              </Grid>
+            ))}
           </Grid>
         </Grid>
 
@@ -85,17 +107,22 @@ const ArtistPage = () => {
           Albums
         </Typography>
         <Grid container spacing={2}>
-          {albums &&
-            albums.map((item: IAlbum, index: any) => (
+          {(isFetchingAlbums ? Array.from(new Array(8)) : albums).map(
+            (item, index) => (
               <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                <AlbumCard
-                  id={item.id}
-                  title={item.title}
-                  releaseDate={item.release_date}
-                  thumbnail={item.cover_big}
-                />
+                {item ? (
+                  <AlbumCard
+                    id={item.id}
+                    title={item.title}
+                    releaseDate={item.release_date}
+                    thumbnail={item.cover_big}
+                  />
+                ) : (
+                  <SkeletonCard />
+                )}
               </Grid>
-            ))}
+            )
+          )}
         </Grid>
       </Box>
     </Container>

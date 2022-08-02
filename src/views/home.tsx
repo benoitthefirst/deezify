@@ -1,38 +1,37 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Container,
-  Grid,
-  Typography
-} from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import client from "../services/client";
 import SongCard from "../components/songCard";
 import AlbumCard from "../components/albumCard";
-import { ITrack,IAlbum,IArtist,IPlaylist,IPodcast} from "../utils/models";
+import SkeletonCard from "../components/skeletonCard";
+import { ITrack, IAlbum, IArtist, IPlaylist, IPodcast } from "../utils/models";
 
 const HomePage = () => {
-  const [tracksData, setTacksData] = useState<Array<ITrack>>();
-  const [albumsData, setAlbumsData] = useState<Array<IAlbum>>();
-  const [artistsData, setArtistsData] = useState<Array<IArtist>>();
-  const [playlistsData, setPlaylistsData] = useState<Array<IPlaylist>>();
-  const [podcastsData, setPodcastsData] = useState<Array<IPodcast>>();
-  
+  const [isFetching, setIsFetching] = useState(true);
+  const [tracksData, setTacksData] = useState(new Array<ITrack>());
+  const [albumsData, setAlbumsData] = useState(new Array<IAlbum>());
+  const [artistsData, setArtistsData] = useState(new Array<IArtist>());
+  const [playlistsData, setPlaylistsData] = useState(new Array<IPlaylist>());
+  const [podcastsData, setPodcastsData] = useState(new Array<IPodcast>());
+
   const GetChart = () => {
+    setIsFetching(true);
     client.get(`chart`).then((response) => {
       setTacksData(response.data.tracks.data);
       setAlbumsData(response.data.albums.data);
       setArtistsData(response.data.artists.data);
       setPlaylistsData(response.data.playlists.data);
       setPodcastsData(response.data.podcasts.data);
+      setIsFetching(false);
     });
-};
+  };
 
   useEffect(() => {
     GetChart();
-  }, []);
+  });
 
   return (
-    <Container fixed sx={{ pt: {xs: 5, sm: 10} }}>
+    <Container fixed sx={{ pt: { xs: 5, sm: 10 } }}>
       <Box sx={{ minHeight: "100vh", pb: 20 }}>
         <Grid item xs={12} sm={8} md={12} lg={12}></Grid>
         <Typography
@@ -46,19 +45,24 @@ const HomePage = () => {
           Top Tracks
         </Typography>
         <Grid container spacing={2}>
-          {tracksData &&
-            tracksData.slice(0, 4).map((item: ITrack, index: any) => (
+          {(isFetching ? Array.from(new Array(4)) : tracksData.slice(0, 4)).map(
+            (item, index) => (
               <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                <SongCard
-                  id={item.artist.id}
-                  title={item.title_short}
-                  duration={item.duration}
-                  artist={item.artist.name}
-                  album={item.album.title}
-                  thumbnail={item.album.cover_big}
-                />
+                {item ? (
+                  <SongCard
+                    id={item.artist.id}
+                    title={item.title_short}
+                    duration={item.duration}
+                    artist={item.artist.name}
+                    album={item.album.title}
+                    thumbnail={item.album.cover_big}
+                  />
+                ) : (
+                  <SkeletonCard />
+                )}
               </Grid>
-            ))}
+            )
+          )}
         </Grid>
         <Typography
           variant="h4"
@@ -71,18 +75,23 @@ const HomePage = () => {
           Top Albums
         </Typography>
         <Grid container spacing={2}>
-          {albumsData &&
-            albumsData.slice(0, 4).map((item: IAlbum, index: any) => (
+          {(isFetching ? Array.from(new Array(4)) : albumsData.slice(0, 4)).map(
+            (item, index) => (
               <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                <AlbumCard
-                  id={item.id}
-                  title={item.title}
-                  artist={item.artist?.name}
-                  artistId={item.artist?.id}
-                  thumbnail={item.cover_big}
-                />
+                {item ? (
+                  <AlbumCard
+                    id={item.id}
+                    title={item.title}
+                    artist={item.artist?.name}
+                    artistId={item.artist?.id}
+                    thumbnail={item.cover_big}
+                  />
+                ) : (
+                  <SkeletonCard />
+                )}
               </Grid>
-            ))}
+            )
+          )}
         </Grid>
         <Typography
           variant="h4"
@@ -95,17 +104,23 @@ const HomePage = () => {
           Top artists
         </Typography>
         <Grid container spacing={2}>
-          {artistsData &&
-            artistsData.slice(0, 4).map((item: IArtist, index: any) => (
-              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+          {(isFetching
+            ? Array.from(new Array(4))
+            : artistsData.slice(0, 4)
+          ).map((item, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+              {item ? (
                 <AlbumCard
                   id={item.id}
-                  title={item.name}
-                  rank={`${item.position}`}
+                  title={item.title}
+                  tracks={item.nb_tracks}
                   thumbnail={item.picture_big}
                 />
-              </Grid>
-            ))}
+              ) : (
+                <SkeletonCard />
+              )}
+            </Grid>
+          ))}
         </Grid>
         <Typography
           variant="h4"
@@ -118,17 +133,23 @@ const HomePage = () => {
           Playlists
         </Typography>
         <Grid container spacing={2}>
-          {playlistsData &&
-            playlistsData.slice(0, 4).map((item: IPlaylist, index: any) => (
-              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+          {(isFetching
+            ? Array.from(new Array(4))
+            : playlistsData.slice(0, 4)
+          ).map((item, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+              {item ? (
                 <AlbumCard
                   id={item.id}
                   title={item.title}
                   tracks={item.nb_tracks}
                   thumbnail={item.picture_big}
                 />
-              </Grid>
-            ))}
+              ) : (
+                <SkeletonCard />
+              )}
+            </Grid>
+          ))}
         </Grid>
         <Typography
           variant="h4"
@@ -141,17 +162,23 @@ const HomePage = () => {
           Podcasts
         </Typography>
         <Grid container spacing={2}>
-          {podcastsData &&
-            podcastsData.slice(0, 4).map((item: IPodcast, index: any) => (
-              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+          {(isFetching
+            ? Array.from(new Array(4))
+            : podcastsData.slice(0, 4)
+          ).map((item, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+              {item ? (
                 <AlbumCard
                   id={item.id}
                   title={item.title}
                   description={item.description}
                   thumbnail={item.picture_big}
                 />
-              </Grid>
-            ))}
+              ) : (
+                <SkeletonCard />
+              )}
+            </Grid>
+          ))}
         </Grid>
       </Box>
     </Container>

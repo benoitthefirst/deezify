@@ -7,7 +7,6 @@ import {
 import HomePage from './views/home';
 import CurrentTrack from "./components/currentTrack";
 import './App.css';
-import NoPage from './views/noPage';
 import ArtistPage from './views/artist';
 import SearchPage from './views/search';
 import Layout from './components/appBar';
@@ -126,19 +125,21 @@ let theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <HashRouter basename='/'>
-        <Layout />
-        <Routes>
-            <Route path="/artist/:artistId" element={<ArtistPage />} />
-            <Route path="/search/:query" element={<SearchPage />} />
-            <Route index element={<HomePage />} />
-            <Route path="*" element={<NoPage />} />
-        </Routes>
-        <CurrentTrack/>
-      </HashRouter>
-    </ThemeProvider>
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter basename='/'>
+          <Layout />
+          <Routes>
+              <Route path="/artist/:artistId" element={<ArtistPage />} />
+              <Route path="/search/:query" element={<SearchPage />} />
+              <Route index element={<HomePage />} />
+              {/* <Route path="*" element={<NoPage />} /> */}
+          </Routes>
+          <CurrentTrack/>
+        </BrowserRouter>
+      </ThemeProvider>
+    </div>
   );
 }
 

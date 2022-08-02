@@ -1,7 +1,6 @@
 {
   "name": "deezify",
   "version": "0.1.0",
-  "homepage": "https://benoitthefirst.github.io/deezify",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.0",

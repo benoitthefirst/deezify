@@ -1,15 +1,12 @@
-import React from 'react';
-import { HashRouter,BrowserRouter, Routes, Route } from "react-router-dom";
-import { 
-  ThemeProvider, createTheme, 
-  CssBaseline
- } from "@mui/material";
-import HomePage from './views/home';
+import React from "react";
+import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import HomePage from "./views/home";
 import CurrentTrack from "./components/currentTrack";
-import ArtistPage from './views/artist';
-import SearchPage from './views/search';
-import NoPage from './views/noPage';
-import AppBar from './components/appBar';
+import ArtistPage from "./views/artist";
+import SearchPage from "./views/search";
+import NoPage from "./views/noPage";
+import AppBar from "./components/appBar";
 
 let theme = createTheme({
   palette: {
@@ -28,7 +25,7 @@ let theme = createTheme({
       // dark: will be calculated from palette.secondary.main,
       //contrastText: "#ffcc00",
     },
-    
+
     info: {
       // light: will be calculated from palette.primary.main,
       main: "#fff",
@@ -41,7 +38,7 @@ let theme = createTheme({
     // Used by the functions below to shift a color's luminance by approximately
     // two indexes within its tonal palette.
     // E.g., shift from Red 500 to Red 300 or Red 700.
-    
+
     tonalOffset: 0.2,
     text: {
       primary: "#ebeef2",
@@ -50,23 +47,23 @@ let theme = createTheme({
   },
   typography: {
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
+      "-apple-system",
+      "BlinkMacSystemFont",
       '"Segoe UI"',
-      'Roboto',
+      "Roboto",
       '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
+      "Arial",
+      "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(","),
     h4: {
-      fontSize: 24
+      fontSize: 24,
     },
     h6: {
-      fontSize: 12
-    }
+      fontSize: 12,
+    },
   },
   components: {
     MuiCssBaseline: {
@@ -82,64 +79,69 @@ let theme = createTheme({
             minHeight: 24,
             border: "3px solid #2b2b2b",
           },
-          "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus": {
-            backgroundColor: "#70fbe0",
-          },
-          "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active": {
-            backgroundColor: "#70fbe0",
-          },
-          "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
-            backgroundColor: "#70fbe0",
-          },
+          "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
+            {
+              backgroundColor: "#70fbe0",
+            },
+          "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active":
+            {
+              backgroundColor: "#70fbe0",
+            },
+          "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover":
+            {
+              backgroundColor: "#70fbe0",
+            },
           "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
             backgroundColor: "#2b2b2b",
           },
         },
-      }
+      },
     },
     MuiAutocomplete: {
-      styleOverrides:{
+      styleOverrides: {
         listbox: {
-          '& .MuiAutocomplete-option[aria-selected="true"]': {  // works
-            backgroundColor: '#111217',
+          '& .MuiAutocomplete-option[aria-selected="true"]': {
+            // works
+            backgroundColor: "#111217",
           },
-          '& .MuiAutocomplete-option[aria-selected="false"]': {  // works
-            backgroundColor: '#1b1c23',
+          '& .MuiAutocomplete-option[aria-selected="false"]': {
+            // works
+            backgroundColor: "#1b1c23",
           },
-          '& .MuiAutocomplete-option[aria-selected="true"].Mui-focused': { // works
-            backgroundColor: '#70fbe0',
-            color: "#000"
+          '& .MuiAutocomplete-option[aria-selected="true"].Mui-focused': {
+            // works
+            backgroundColor: "#70fbe0",
+            color: "#000",
           },
-          '& .MuiAutocomplete-option:hover': { // works
-            backgroundColor: '#111217',
+          "& .MuiAutocomplete-option:hover": {
+            // works
+            backgroundColor: "#111217",
           },
-          '& .MuiAutocomplete-option:after': { // works
-            backgroundColor: '#111217',
+          "& .MuiAutocomplete-option:after": {
+            // works
+            backgroundColor: "#111217",
           },
-          
         },
-      }
+      },
     },
   },
 });
 
 function App() {
   return (
-    <div className="App">
+    <HashRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <BrowserRouter>
-          <AppBar />
-          <Routes>
-              <Route index element={<HomePage />} />
-              <Route path="artist/:id" element={<ArtistPage />} />
-              <Route path="search/:query" element={<SearchPage />} />
-              <Route path="*" element={<NoPage />} />
-          </Routes>
-          <CurrentTrack/>
-        </BrowserRouter>
+        <AppBar />
+        <Routes>
+            <Route index element={<HomePage />} />
+            <Route path="search/:query" element={<SearchPage />} />
+            <Route path="artist/:id" element={<ArtistPage />} />
+            <Route path="*" element={<NoPage />} />
+        </Routes>
+        <CurrentTrack />
       </ThemeProvider>
-    </div>
+    </HashRouter>
   );
 }
 

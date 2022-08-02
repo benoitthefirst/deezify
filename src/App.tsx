@@ -131,9 +131,9 @@ function App() {
         <BrowserRouter>
           <AppBar />
           <Routes>
-              <Route path="artist/:artistId" element={<ArtistPage />} />
-              <Route path="search/:query" element={<SearchPage />} />
               <Route index element={<HomePage />} />
+              <Route path="artist/:id" element={<ArtistPage />} />
+              <Route path="search/:query" element={<SearchPage />} />
               <Route path="*" element={<NoPage />} />
           </Routes>
           <CurrentTrack/>

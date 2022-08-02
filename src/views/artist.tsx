@@ -18,26 +18,26 @@ import ArtistBanner from "../components/artistBanner";
 import "../components/track.scss";
 
 const ArtistPage = () => {
-    const { artistId } = useParams();
+    const { id } = useParams();
     const [artistData, setArtistData] = useState<IArtist>();
     const [data, setData] = useState<Array<ITrack>>([]);
     const [topTracks, setTopTracks] = useState<Array<ITrack>>([]);
     const [albums, setAlbums] = useState<Array<IAlbum>>([]);
 
     const GetArtist = () => {
-        client.get(`artist/${artistId}`).then((response) => {
+        client.get(`artist/${id}`).then((response) => {
             setArtistData(response.data);
         });
     };
 
     const GetTopTracks = () => {
-        client.get(`artist/${artistId}/top?limit=5`).then((response) => {
+        client.get(`artist/${id}/top?limit=5`).then((response) => {
             setTopTracks(response.data.data);
         });
     };
 
     const GetAlbums = () => {
-        client.get(`artist/${artistId}/albums`).then((response) => {
+        client.get(`artist/${id}/albums`).then((response) => {
             setAlbums(response.data.data);
         });
     };

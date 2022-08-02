@@ -9,9 +9,9 @@ import SkeletonCard from "../components/skeletonCard";
 import ArtistBanner from "../components/artistBanner";
 
 const ArtistPage = () => {
-  const [isFetchingAlbums, setIsFetchingAlbums] = useState(true);
-  const [isFetchingTracks, setIsFetchingTracks] = useState(true);
-  const [isFetchingInfo, setIsFetchingInfo] = useState(true);
+  const [isFetchingAlbums, setIsFetchingAlbums] = useState(false);
+  const [isFetchingTracks, setIsFetchingTracks] = useState(false);
+  const [isFetchingInfo, setIsFetchingInfo] = useState(false);
   const { id } = useParams();
   const [artistData, setArtistData] = useState<IArtist>();
   const [topTracks, setTopTracks] = useState(new Array<ITrack>());

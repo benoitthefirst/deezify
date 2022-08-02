@@ -7,7 +7,7 @@ import SkeletonCard from "../components/skeletonCard";
 import { ITrack } from "../utils/models";
 
 const SearchPage = () => {
-  const [isFetching, setIsFetching] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const { query } = useParams();
   const [data, setData] = useState(new Array<ITrack>());
 

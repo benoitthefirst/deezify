@@ -7,7 +7,7 @@ import SkeletonCard from "../components/skeletonCard";
 import { ITrack, IAlbum, IArtist, IPlaylist, IPodcast } from "../utils/models";
 
 const HomePage = () => {
-  const [isFetching, setIsFetching] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [tracksData, setTacksData] = useState(new Array<ITrack>());
   const [albumsData, setAlbumsData] = useState(new Array<IAlbum>());
   const [artistsData, setArtistsData] = useState(new Array<IArtist>());

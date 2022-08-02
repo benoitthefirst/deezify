@@ -145,6 +145,7 @@ const HomePage = () => {
                   id={item.id}
                   title={item.title}
                   artist={item.artist?.name}
+                  artistId={item.artist?.id}
                   thumbnail={item.cover_big}
                 />
               </Grid>

@@ -127,11 +127,11 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <BrowserRouter basename='/'>
+        <BrowserRouter>
           <Layout />
           <Routes>
-              <Route path="/artist/:artistId" element={<ArtistPage />} />
-              <Route path="/search/:query" element={<SearchPage />} />
+              <Route path="artist/:artistId" element={<ArtistPage />} />
+              <Route path="search/:query" element={<SearchPage />} />
               <Route index element={<HomePage />} />
               {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>

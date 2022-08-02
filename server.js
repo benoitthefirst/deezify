@@ -4,6 +4,3 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static("build"));
 app.listen(PORT, () => console.log(`Listing on port ${PORT}`));
-app.get('*', function(request, response){
-    response.sendFile('./build');
-  });

@@ -128,7 +128,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter basename='/'>
+      <HashRouter basename='/'>
         <Layout />
         <Routes>
             <Route path="/artist/:artistId" element={<ArtistPage />} />
@@ -137,7 +137,7 @@ function App() {
             <Route path="*" element={<NoPage />} />
         </Routes>
         <CurrentTrack/>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }

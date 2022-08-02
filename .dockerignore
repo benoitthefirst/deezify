@@ -1,0 +1,9 @@
+# Git
+**/.git
+**/.gitignore
+
+# Docker
+**/Dockerfile
+**/docker-compose.yml
+node_modules
+client/node_modules

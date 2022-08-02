@@ -129,7 +129,7 @@ let theme = createTheme({
 
 function App() {
   return (
-    <HashRouter>
+    <HashRouter basename="/">
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppBar />

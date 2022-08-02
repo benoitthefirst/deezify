@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/deezify/static/css/main.ad2d59d7.css",
-    "main.js": "/deezify/static/js/main.72274113.js",
+    "main.js": "/deezify/static/js/main.02a6f67d.js",
     "static/js/787.638cfe03.chunk.js": "/deezify/static/js/787.638cfe03.chunk.js",
     "index.html": "/deezify/index.html",
     "main.ad2d59d7.css.map": "/deezify/static/css/main.ad2d59d7.css.map",
-    "main.72274113.js.map": "/deezify/static/js/main.72274113.js.map",
+    "main.02a6f67d.js.map": "/deezify/static/js/main.02a6f67d.js.map",
     "787.638cfe03.chunk.js.map": "/deezify/static/js/787.638cfe03.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ad2d59d7.css",
-    "static/js/main.72274113.js"
+    "static/js/main.02a6f67d.js"
   ]
 }

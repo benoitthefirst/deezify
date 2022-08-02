@@ -6,7 +6,6 @@ import {
  } from "@mui/material";
 import HomePage from './views/home';
 import CurrentTrack from "./components/currentTrack";
-import './App.css';
 import ArtistPage from './views/artist';
 import SearchPage from './views/search';
 import Layout from './components/appBar';

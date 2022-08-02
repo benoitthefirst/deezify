@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter,BrowserRouter, Routes, Route } from "react-router-dom";
 import { 
   ThemeProvider, createTheme, 
-  CssBaseline,responsiveFontSizes
+  CssBaseline
  } from "@mui/material";
 import HomePage from './views/home';
 import CurrentTrack from "./components/currentTrack";
@@ -129,11 +128,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
+      <BrowserRouter basename='/'>
         <Layout />
         <Routes>
-            <Route path="artist/:artisId" element={<ArtistPage />} />
-            <Route path="search/:query" element={<SearchPage />} />
+            <Route path="/artist/:artistId" element={<ArtistPage />} />
+            <Route path="/search/:query" element={<SearchPage />} />
             <Route index element={<HomePage />} />
             <Route path="*" element={<NoPage />} />
         </Routes>

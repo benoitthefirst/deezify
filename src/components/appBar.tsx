@@ -50,7 +50,7 @@ const Layout = () => {
     }
  
     const search = () =>{
-      navigate(`/search/${searchQuery}`, { replace: true });
+      navigate(`/search/${searchQuery}`);
     }
 
     useEffect(() => {

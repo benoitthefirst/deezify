@@ -1,11 +1,12 @@
-# Welcome to shifttech!!!
+# Welcome to deezify!!!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 # App Demo
-ShiftTech [Demo](https://shift-tech.herokuapp.com/).
+Deezify [Demo](https://deezify-web.herokuapp.com//).
 
-!["ShiftTech Preview"](https://github.com/benoitthefirst/shifttech/blob/main/screenshots/screenshot.png?raw=true "ShiftTech Preview")
+!["Deezify Preview"](https://github.com/benoitthefirst/deezify/blob/main/screenshots/screenshot.png?raw=true "Home Page Preview")
+!["Deezify Preview"](https://github.com/benoitthefirst/deezify/blob/main/screenshots/screenshot1.png?raw=true "Artist Page Preview")
 
 ## Available Scripts
 
